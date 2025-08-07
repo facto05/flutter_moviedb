@@ -1,5 +1,6 @@
 import 'package:flutter_moviedb/core/data/dto/movie_list/dates.dart';
 import 'package:flutter_moviedb/core/data/dto/movie_list/result.dart';
+import 'package:flutter_moviedb/core/domain/entity/movie/movie_list.dart';
 
 class MovieResponse {
   final Dates? dates;
@@ -27,6 +28,14 @@ class MovieResponse {
           .toList(),
       totalPages: json['total_pages'],
       totalResults: json['total_results'],
+    );
+  }
+
+  MovieList toEntity() {
+    return MovieList(
+      movies: results.map((result) => result.toEntity()).toList(),
+      page: page,
+      totalPages: totalPages,
     );
   }
 }
