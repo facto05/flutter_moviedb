@@ -1,5 +1,6 @@
 import 'package:flutter_moviedb/core/domain/entity/movie/movie.dart';
 import 'package:flutter_moviedb/core/domain/repository/genre_repository.dart';
+import 'package:intl/intl.dart';
 
 class Result {
   bool? adult;
@@ -56,13 +57,15 @@ class Result {
   }
 
   Movie toEntity() {
+    DateTime releaseDateTime = DateTime.tryParse(releaseDate ?? '') ?? DateTime.now();
+    String formattedDate = DateFormat('dd MMMM yyyy').format(releaseDateTime);
     return Movie(
       id: id?.toString() ?? '',
       title: title ?? '',
       overview: overview ?? '',
       posterPath: 'https://image.tmdb.org/t/p/w185$posterPath',
       backdropPath: backdropPath ?? '',
-      releaseDate: releaseDate ?? '',
+      releaseDate: formattedDate,
       voteAverage: voteAverage ?? 0.0,
       video: video ?? false,
       genres: genreIds?.map((id) => GenreRepository.findGenreById(id).name).toList() ?? [],

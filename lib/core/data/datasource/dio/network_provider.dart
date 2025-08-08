@@ -6,10 +6,15 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class NetworkProviderDio {
   late Dio _dio;
 
+  NetworkProviderDio() {
+    createInstance();
+  }
+
   Future<Dio> createInstance() async {
     Duration timeoutDuration = const Duration(
       seconds: Endpoints.connectTimeout,
     );
+
     _dio = Dio(
       BaseOptions(
         baseUrl: Endpoints.baseUrl,
