@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moviedb/core/di/injection.dart';
-import 'package:flutter_moviedb/presentation/home/home_page.dart';
+import 'package:flutter_moviedb/routes/router.dart';
 
 void main() async {
   await configureDependencies();
@@ -12,8 +12,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }

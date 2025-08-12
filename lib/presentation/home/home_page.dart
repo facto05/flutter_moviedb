@@ -4,7 +4,8 @@ import 'package:flutter_moviedb/core/domain/entity/movie/movie.dart';
 import 'package:flutter_moviedb/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_moviedb/presentation/home/bloc/home_event.dart';
 import 'package:flutter_moviedb/presentation/home/bloc/home_state.dart';
-import 'package:flutter_moviedb/presentation/movie_detail/movie_detail_page.dart';
+import 'package:flutter_moviedb/routes/router.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -29,7 +30,6 @@ class Home extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is HomeLoaded) {
           return Scaffold(
-            
             body: CustomScrollView(
               slivers: [
                 // Now Playing Section
@@ -95,6 +95,9 @@ class Home extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       // Implement "See All" functionality
+                      if (title == 'Now Playing') {
+                        context.push("/${RouterName.nowPlaying}");
+                      }
                     },
                     child: const Text('See All'),
                   ),
@@ -115,12 +118,7 @@ class Home extends StatelessWidget {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieDetailPage(movie: movie),
-                        ),
-                      );
+                      context.push('/movieDetail', extra: movie);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
