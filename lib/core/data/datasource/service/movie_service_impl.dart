@@ -1,6 +1,7 @@
 import 'package:flutter_moviedb/core/data/datasource/dio/endpoints.dart';
 import 'package:flutter_moviedb/core/data/datasource/dio/network_provider.dart';
 import 'package:flutter_moviedb/core/data/datasource/service/movie_service.dart';
+import 'package:flutter_moviedb/core/data/dto/movie_detail/movie_detail_response_dto.dart.dart';
 import 'package:flutter_moviedb/core/data/dto/movie_list/movie_response.dart';
 import 'package:injectable/injectable.dart';
 
@@ -44,5 +45,20 @@ class MovieServiceImpl implements MovieService {
       queryParameters: {'page': page},
     );
     return MovieResponse.fromJson(response.data);
+  }
+
+  @override
+  Future<MovieDetailResponseDto> getMovieDetail(int movieId) async {
+    final response = await networkProviderDio.get(
+      "${Endpoints.movieDetails}/$movieId",
+    );
+
+    return MovieDetailResponseDto.fromJson(response.data);
+  }
+
+  @override
+  Future<MovieResponse> searchMovies(String query, int page) {
+    // TODO: implement searchMovies
+    throw UnimplementedError();
   }
 }

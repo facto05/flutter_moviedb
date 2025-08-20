@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_moviedb/core/di/injection.dart';
+import 'package:flutter_moviedb/core/domain/entity/movie/movie.dart';
 import 'package:flutter_moviedb/core/domain/usecase/movie/now_playing_movie_usecase.dart';
 import 'package:flutter_moviedb/presentation/now_playing/bloc/now_playing_event.dart';
 import 'package:flutter_moviedb/presentation/now_playing/bloc/now_playing_state.dart';
@@ -27,9 +28,14 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
 
       final result = await nowPlayingMovieUsecase.call(currentPage);
       hasReachedMax = result.movies.isEmpty;
+
+      final updatedMovies = [...state.movies, ...result.movies];
+
+      final uniqueMovies = _removeDuplicateMovie(updatedMovies);
+
       emit(
         NowPlayingLoaded(
-          movies: state.movies + result.movies,
+          movies: uniqueMovies,
           hasReachedMax: result.movies.isEmpty,
         ),
       );
@@ -37,5 +43,10 @@ class NowPlayingBloc extends Bloc<NowPlayingEvent, NowPlayingState> {
     } catch (e) {
       emit(NowPlayingError(e.toString()));
     }
+  }
+
+  List<Movie> _removeDuplicateMovie(List<Movie> movies){
+    final seen = <String>{};
+    return movies.where((movie) => seen.add(movie.id)).toList();
   }
 }

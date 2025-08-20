@@ -18,4 +18,5 @@ class Endpoints {
   static const String popularMovies = 'movie/popular';
   static const String topRatedMovies = 'movie/top_rated';
   static const String upcomingMovies = 'movie/upcoming';
+  static const String movieDetails = 'movie/';
 }

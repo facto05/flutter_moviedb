@@ -113,12 +113,12 @@ class Home extends StatelessWidget {
                 itemCount: movies.length,
                 itemBuilder: (context, index) {
                   final movie = movies[index];
-                  // final rating = movie.voteAverage / 10; // Convert to 0-1 range
-                  // final ratingColor = _getRatingColor(rating);
-
                   return GestureDetector(
                     onTap: () {
-                      context.push('/movieDetail', extra: movie);
+                      context.goNamed(
+                        RouterName.movieDetail,
+                        pathParameters: {'movieId': movie.id.toString()},
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),

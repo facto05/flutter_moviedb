@@ -1,4 +1,3 @@
-import 'package:flutter_moviedb/core/domain/entity/movie/movie.dart';
 import 'package:flutter_moviedb/presentation/home/home_page.dart';
 import 'package:flutter_moviedb/presentation/movie_detail/movie_detail_page.dart';
 import 'package:flutter_moviedb/presentation/now_playing/now_playing_movie_page.dart';
@@ -19,8 +18,8 @@ final router = GoRouter(
         GoRoute(
           path: RouterName.movieDetail,
           builder: (context, state) {
-            final movieId = state.extra as Movie;
-            return MovieDetailPage(movie: movieId);
+            final movieId = int.parse(state.pathParameters['movieId']!);
+            return MovieDetailPage(movieId: movieId);
           },
         ),
       ],

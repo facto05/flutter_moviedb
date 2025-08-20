@@ -1,4 +1,5 @@
 import 'package:flutter_moviedb/core/data/datasource/service/movie_service.dart';
+import 'package:flutter_moviedb/core/domain/entity/movie/movie_detail.dart';
 import 'package:flutter_moviedb/core/domain/entity/movie/movie_list.dart';
 import 'package:flutter_moviedb/core/domain/repository/movie_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -37,6 +38,12 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<MovieList> searchMovies(String query, int page) async {
     // TODO: implement searchMovies
     throw UnimplementedError();
+  }
+
+  @override
+  Future<MovieDetail> getMovieDetail(int movieId) async {
+    final response = await movieService.getMovieDetail(movieId);
+    return response.toEntity();
   }
   
 }

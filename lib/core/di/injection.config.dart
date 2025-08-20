@@ -20,6 +20,8 @@ import 'package:flutter_moviedb/core/data/repository/movie_repository_impl.dart'
 import 'package:flutter_moviedb/core/di/app_module.dart' as _i866;
 import 'package:flutter_moviedb/core/domain/repository/movie_repository.dart'
     as _i948;
+import 'package:flutter_moviedb/core/domain/usecase/movie/get_movie_detail_usecase.dart'
+    as _i430;
 import 'package:flutter_moviedb/core/domain/usecase/movie/now_playing_movie_usecase.dart'
     as _i1003;
 import 'package:flutter_moviedb/core/domain/usecase/movie/popular_movie_usecase.dart'
@@ -59,6 +61,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i91.UpcomingMovieUsecase>(
       () => _i91.UpcomingMovieUsecase(gh<_i948.MovieRepository>()),
+    );
+    gh.singleton<_i430.GetMovieDetailUsecase>(
+      () => _i430.GetMovieDetailUsecase(gh<_i948.MovieRepository>()),
     );
     return this;
   }
